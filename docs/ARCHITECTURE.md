@@ -51,10 +51,11 @@
 
 1. **Score** each new item against (a) the interest graph and (b) all person-interest profiles — cosine similarity on embeddings, weighted by interest weight and recency.
 2. **Select the deck**: top ~7–12 with a per-topic diversity cap, at least one item per "person match" where available, plus one serendipity item sampled from *low*-similarity items.
-3. **Generate Fuel Cards**: one LLM call per selected item (title + extracted text in, structured JSON out: gist, hook, breakdown, angles, questions, depth ladder). Validate against a schema; retry malformed output once.
-4. **Attach matches**: link each card to matched interests and people with a relevance score and a one-line "why this matches" from the scoring stage.
-5. **Pick the Craft Note**: rotate through the craft library, preferring notes relevant to the deck's makeup.
-6. Mark the download `ready`. The morning page renders instantly from stored rows — no LLM calls at read time.
+3. **Retrieve context**: for each selected item, pull the nearest past items/cards from the archive (pgvector similarity, thresholded). This powers "The Story So Far" — the card recaps the arc, not just today's development — and links the card into its story thread. Context quality compounds as the archive grows.
+4. **Generate Fuel Cards**: one LLM call per selected item (title + extracted text + retrieved context in, structured JSON out: gist, hook, story-so-far, breakdown, angles, questions, depth ladder). Validate against a schema; retry malformed output once.
+5. **Attach matches**: link each card to matched interests and people with a relevance score and a one-line "why this matches" from the scoring stage.
+6. **Pick the Craft Note**: rotate through the craft library, preferring notes relevant to the deck's makeup.
+7. Mark the download `ready`. The morning page renders instantly from stored rows — no LLM calls at read time.
 
 ### The Interview
 
@@ -78,6 +79,8 @@ downloads        (date date, status text,        -- pending | ready
                   craft_note_id uuid)
 fuel_cards       (download_id uuid, item_id uuid, position int,
                   gist text, hook text,
+                  story_so_far text null,         -- arc recap for developing stories
+                  context_item_ids uuid[],        -- past items retrieved as context (thread links)
                   breakdown jsonb,                -- {facts[], why_it_matters, contested}
                   angles jsonb,                   -- [{lens, text}]
                   questions text[],
@@ -101,14 +104,29 @@ Notes:
 
 ## Environment variables
 
+### Required from day one
+
 | Variable | Where | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Vercel + local | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel + local | Client-side key (RLS enforced) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Vercel + local, server-only | Cron pipeline writes |
 | `ANTHROPIC_API_KEY` | Vercel + local, server-only | Interview + card generation |
-| `CRON_SECRET` | Vercel | Authorizes Vercel Cron → route handlers |
-| `EMBEDDING_API_KEY` | server-only | Whichever embedding provider we pick |
+| `VOYAGE_API_KEY` *(or `OPENAI_API_KEY`)* | server-only | Embeddings — Anthropic has no embeddings API (it recommends Voyage); OpenAI's works too. Pick one: Roadmap open question #1 |
+| `CRON_SECRET` | Vercel | Authorizes Vercel Cron → route handlers. Self-generated: `openssl rand -hex 32` |
+
+### Explicitly NOT needed
+
+- **RSS and all content sources — no keys anywhere.** Blogs, Substack, Google News feeds, Reddit `.rss`, Hacker News, arXiv, YouTube channel feeds, and Kill the Newsletter are all plain public HTTP. The only requirement is a descriptive User-Agent header (a code constant, not a secret) — Reddit in particular throttles anonymous ones.
+- **xAI / X (Twitter).** We're not using Grok as the LLM, and X-as-a-source isn't worth it: the free API tier has no meaningful read access and paid tiers start ~$200/mo. Conversation-worthy X content resurfaces through newsletters and aggregators within a day.
+
+### Later phases (add only when the feature lands)
+
+| Variable | Phase | Purpose |
+|---|---|---|
+| `RESEND_API_KEY` (or Postmark) | 5 | Inbound email for the self-hosted newsletter → RSS bridge |
+| TTS provider key (e.g. `ELEVENLABS_API_KEY`) | 5 | Commute Mode text-to-speech |
+| `FIRECRAWL_API_KEY` | if needed | Fallback extraction for JS-heavy sites where the readability library fails — only add if that proves to be a real problem |
 
 Setup order: create the Supabase project → run migrations (kept in `supabase/migrations/`) → create the Vercel project linked to this repo → populate env vars → enable crons in `vercel.json`.
 

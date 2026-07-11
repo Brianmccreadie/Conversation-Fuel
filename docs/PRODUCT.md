@@ -50,6 +50,7 @@ The centerpiece. Each morning the pipeline scores fresh items against the intere
 - **Gist** — the story in two sentences.
 - **The Hook** — the single most surprising, counterintuitive, or delightful element. The thing you'd lead with.
 - **Breakdown** — key facts, why it matters, and what's contested or unknown. (Knowing the *limits* of a story keeps you honest and makes you sound smarter, not less.)
+- **The Story So Far** — for developing stories, a short recap of the arc: what happened before today, and how today's development changes it. Built from your own archive — related past items are retrieved by similarity and fed into card generation, so context compounds the longer the app runs. A headline is trivia; an arc is a story you can actually tell.
 - **Angles** — two or three lenses on the same story: the human story, the big number, the historical echo, the controversy. Different rooms call for different angles.
 - **Open Questions** — the genuine questions the story raises. Not scripts — these are for *your* curiosity, and they double as great things to wonder aloud.
 - **Depth Ladder** — 30-second version → 2-minute version → link to the full source. You choose how deep to load.
@@ -81,8 +82,10 @@ Roughly ordered by value-to-effort for a personal app:
 4. **Serendipity Slot** — one wildcard card per day deliberately *outside* your interest graph. Guards against the app narrowing your world; the best conversationalists are surprising.
 5. **Recap / spaced resurfacing** — great stories fade in a week. Resurface starred cards at intervals so they stay retrievable in live conversation.
 6. **Weekly Threads** — a Sunday digest that connects the week's cards: "Three of this week's AI stories all point at the same shift…" Trends are better fuel than single stories.
-7. **Commute Mode** (later) — text-to-speech reading of the Daily Download.
-8. **Quality signals** (later) — source-credibility notes on cards; flag single-sourced or thinly-reported stories.
+7. **Story Threads** — the per-story version of the same idea: cards that belong to the same developing storyline link to each other, and a thread page shows the whole arc chronologically. Pairs with "The Story So Far" on each card; also lets a thread you care about get a card even on a slow-news day ("nothing new this week, but here's where it stands").
+8. **Backgrounders** — fuel doesn't have to be *new*. Ingestion isn't limited to news feeds: evergreen sources (classic essays, long-form archives, "best of" feeds) are valid sources too, and an occasional deck slot can go to a great backgrounder on one of your interests rather than something published yesterday.
+9. **Commute Mode** (later) — text-to-speech reading of the Daily Download.
+10. **Quality signals** (later) — source-credibility notes on cards; flag single-sourced or thinly-reported stories.
 
 ## Single-user now, multi-user later
 
