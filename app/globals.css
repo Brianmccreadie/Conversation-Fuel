@@ -33,3 +33,36 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+/* The Ember */
+@keyframes ember-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+@keyframes ember-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+.ember-breathe {
+  animation: ember-breathe 4.5s ease-in-out infinite;
+}
+.ember-blink {
+  animation: ember-blink 6s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ember-breathe,
+  .ember-blink {
+    animation: none;
+  }
+}
