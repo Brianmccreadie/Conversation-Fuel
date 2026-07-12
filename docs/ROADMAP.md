@@ -15,11 +15,14 @@ Each phase ships something usable. Bias: get real fuel into real mornings as ear
 
 ## Phase 1 — Interests & ingestion
 
-- [ ] Interest Interview (chat UI → structured interests + suggested sources → review/approve screen)
-- [ ] Manual source management (add/pause/delete a feed; validate feed URL on add)
-- [ ] Nightly ingest cron: fetch, dedupe, extract, embed
-- [ ] Sources health view (last fetch, failures) — plain, functional
-- [ ] Raw item list view — proves ingestion works before any LLM polish
+- [x] Interest Interview (streaming chat → structured extraction → review/approve screen)
+- [x] Manual source management (add/pause/delete a feed; feed URL validated on add)
+- [x] Nightly ingest cron (`/api/cron/ingest`, 7:00 UTC): fetch, dedupe, extract, embed
+- [x] Sources health view (last fetch, failure count)
+- [x] The Wire — raw ingested item list
+- [x] Interests page (list, pause, delete)
+
+**Owner setup for Phase 1**: add `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`, and `CRON_SECRET` to Vercel env vars (and `.env.local`). `CRON_SECRET`: `openssl rand -hex 32`.
 
 **Milestone: the app reads your feeds every night.**
 
