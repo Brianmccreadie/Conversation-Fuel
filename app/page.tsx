@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { Nav } from "@/components/nav";
 
 const DATE_FORMAT: Intl.DateTimeFormatOptions = {
   weekday: "long",
@@ -17,6 +18,9 @@ export default async function Home() {
 
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
+      <div className="mb-6">
+        <Nav active="/" />
+      </div>
       {/* Masthead */}
       <header className="border-b-2 border-ink pb-6">
         <div className="flex items-baseline justify-between font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
