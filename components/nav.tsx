@@ -5,7 +5,7 @@ const LINKS = [
   { href: "/wire", label: "The Wire" },
   { href: "/interests", label: "Interests" },
   { href: "/sources", label: "Sources" },
-  { href: "/interview", label: "Interview" },
+  { href: "/fuelup", label: "Fuel Up" },
 ];
 
 export function Nav({ active }: { active: string }) {

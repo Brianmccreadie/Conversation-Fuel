@@ -59,13 +59,22 @@ export default async function InterestsPage() {
         {(interests ?? []).length === 0 && (
           <li className="py-8 text-center text-sm text-ink-faint">
             No interests yet.{" "}
-            <Link href="/interview" className="text-accent hover:underline">
-              Run the Interest Interview
+            <Link href="/fuelup" className="text-accent hover:underline">
+              Fuel up
             </Link>{" "}
-            to set them up.
+            — sixty seconds, a few taps.
           </li>
         )}
       </ul>
+      <p className="mt-10 text-center font-mono text-xs uppercase tracking-widest text-ink-faint">
+        <Link href="/fuelup" className="hover:text-accent">
+          Add more topics
+        </Link>
+        {" · "}
+        <Link href="/interview" className="hover:text-accent">
+          Go deeper with the interview
+        </Link>
+      </p>
     </main>
   );
 }

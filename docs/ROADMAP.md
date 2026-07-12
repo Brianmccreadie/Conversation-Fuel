@@ -30,20 +30,21 @@ Each phase ships something usable. Bias: get real fuel into real mornings as ear
 
 *Driven by owner feedback: intake should be 60 seconds of dumping and tapping, not an interview. See PRODUCT.md § 1 and DESIGN.md § Concept Nº 2.*
 
-- [ ] Brain dump screen (big box + starter chips → LLM parse into interests)
-- [ ] Tap calibration (one interest per screen: hour / curious / skip; angle chips for top interests)
-- [ ] Auto-attached feeds shown as toggles (known feeds + Google News fallback)
-- [ ] Promise screen + "spark 3 stories now" instant starter deck
-- [ ] The Ember v0 (CSS orb: breathing, blinking, three states) + microcopy voice
-- [ ] Demote interview to optional "Go deeper" entry point
+- [x] Brain dump screen (big box + starter chips → LLM parse into interests)
+- [x] Tap calibration (one interest per screen: hour / curious / skip; angle chips for "hour" topics)
+- [x] Feeds auto-attached per interest (LLM-suggested + Google News fallback)
+- [x] Promise screen + "spark now" instant first deck
+- [x] The Ember v0 (breathing, blinking, dim/glow/bright + smile) + microcopy voice
+- [x] Interview demoted to optional "Go deeper" entry point
 
 ## Phase 2 — The Daily Download
 
-- [ ] Scoring + deck selection (similarity, diversity cap, serendipity slot)
-- [ ] Fuel Card generation (structured LLM output, schema-validated)
-- [ ] Morning generate cron; download marked ready
-- [ ] The deck UI: masthead, card-at-a-time, hook-as-pull-quote, depth ladder, end screen with the Ember
-- [ ] Deck reactions ("more/less like this") + star / used-it interactions feeding the ranker
+- [x] Scoring + deck selection (interest-embedding similarity × weight, per-interest diversity cap, wildcard slot, person matching)
+- [x] Fuel Card generation (structured LLM output: gist, hook, story-so-far with archive context, breakdown, angles, questions, depth ladder)
+- [x] Morning generate cron (7:45 UTC, after ingest); download marked ready
+- [x] The deck UI: masthead, card-at-a-time, hook-as-pull-quote, depth ladder, keyboard nav (arrows/j/k/s/u), end screen with the Ember
+- [x] Deck reactions (more/less) + back-pocket star + used-it — logged to `interactions` (ranker consumes them in a later pass)
+- [ ] Reactions actually adjust scoring (more/less nudges interest weights)
 
 **Milestone: you skim a real Daily Download with coffee. This is the moment to use it daily for 2 weeks and let the annoyances drive Phase 3+ priorities.**
 
