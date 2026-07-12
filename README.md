@@ -29,6 +29,16 @@ Built on the ideas of Dale Carnegie and modern conversation researchers: be genu
 | [docs/DESIGN.md](docs/DESIGN.md) | Visual concept and design language |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Phased build plan |
 
+## Getting started
+
+```bash
+npm install
+cp .env.example .env.local   # fill in Supabase values
+npm run dev
+```
+
+Database: apply `supabase/migrations/` to your Supabase project (SQL editor, or `supabase db push` with the linked CLI). Create your login under **Authentication → Add user** in the Supabase dashboard — the app uses email + password sign-in.
+
 ## Status
 
-Planning phase. Next step: scaffold the Next.js app and stand up Supabase (see [docs/ROADMAP.md](docs/ROADMAP.md), Phase 0).
+Phase 0 (foundation) — app shell, auth, and schema in place. Next: the Interest Interview and the ingestion pipeline (see [docs/ROADMAP.md](docs/ROADMAP.md), Phase 1).

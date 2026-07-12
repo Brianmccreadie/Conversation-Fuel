@@ -4,14 +4,14 @@ Each phase ships something usable. Bias: get real fuel into real mornings as ear
 
 ## Phase 0 — Foundation
 
-- [x] Repo + planning docs (this commit)
-- [ ] Scaffold Next.js (App Router, TypeScript, Tailwind)
-- [ ] Create Supabase project; `supabase/migrations/` with the v1 schema; enable `pgvector`
-- [ ] Create Vercel project linked to the repo; populate env vars (see ARCHITECTURE.md)
-- [ ] Supabase Auth with a single account; RLS policies on all tables
-- [ ] Skeleton UI shell with the design language (type, palette, card frame)
+- [x] Repo + planning docs
+- [x] Scaffold Next.js (App Router, TypeScript, Tailwind v4)
+- [x] `supabase/migrations/` with the v1 schema + `pgvector` + RLS policies
+- [x] Vercel project linked to the repo; Supabase env vars populated
+- [x] Auth: email + password, single user (no magic link — personal app; Supabase Auth keeps `auth.uid()`/RLS real for later multi-user)
+- [x] Skeleton UI shell with the design language (paper/ink palette, Fraunces/Inter/JetBrains Mono, masthead + login)
 
-**Owner setup required** (can't be done from code): create the Supabase project, create the Vercel project, generate an Anthropic API key, paste env vars into Vercel + `.env.local`.
+**Owner setup remaining**: run the migration against the Supabase project, create your user (Dashboard → Authentication → Add user), add `ANTHROPIC_API_KEY` + embeddings key + `CRON_SECRET` when Phase 1 starts.
 
 ## Phase 1 — Interests & ingestion
 

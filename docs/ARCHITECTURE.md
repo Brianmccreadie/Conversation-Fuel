@@ -74,7 +74,7 @@ sources          (interest_id uuid null, type text,   -- rss | newsletter_bridge
                   failure_count int)
 items            (source_id uuid, url text, canonical_hash text, title text,
                   author text, published_at timestamptz, content text,
-                  embedding vector(1536))
+                  embedding vector(1024))
 downloads        (date date, status text,        -- pending | ready
                   craft_note_id uuid)
 fuel_cards       (download_id uuid, item_id uuid, position int,
@@ -87,7 +87,7 @@ fuel_cards       (download_id uuid, item_id uuid, position int,
                   depth jsonb)                    -- {sec30, min2}
 card_interests   (card_id uuid, interest_id uuid, relevance real, why text)
 people           (name text, relationship text, notes text)
-person_interests (person_id uuid, label text, detail text, embedding vector(1536))
+person_interests (person_id uuid, label text, detail text, embedding vector(1024))
 card_people      (card_id uuid, person_id uuid, relevance real, why text)
 capture_notes    (person_id uuid, note text)      -- post-conversation captures
 interactions     (card_id uuid, action text,      -- starred | used | dismissed

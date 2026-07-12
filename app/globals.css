@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* "The Private Wire" — paper & ink, one flame accent. See docs/DESIGN.md */
+@theme {
+  --color-paper: #faf7f2;
+  --color-paper-raised: #fffdf9;
+  --color-ink: #1c1a17;
+  --color-ink-soft: #4d4a45;
+  --color-ink-faint: #8a857d;
+  --color-rule: #e2dcd2;
+  --color-accent: #d64513;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* Evening Edition */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #191714;
+    --color-paper-raised: #211e1a;
+    --color-ink: #ece7de;
+    --color-ink-soft: #b5aea3;
+    --color-ink-faint: #7d776d;
+    --color-rule: #35312b;
+    --color-accent: #f0602a;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
