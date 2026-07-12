@@ -26,28 +26,40 @@ Each phase ships something usable. Bias: get real fuel into real mornings as ear
 
 **Milestone: the app reads your feeds every night.**
 
+## Phase 1.5 — Fuel Up (v2 intake redesign)
+
+*Driven by owner feedback: intake should be 60 seconds of dumping and tapping, not an interview. See PRODUCT.md § 1 and DESIGN.md § Concept Nº 2.*
+
+- [ ] Brain dump screen (big box + starter chips → LLM parse into interests)
+- [ ] Tap calibration (one interest per screen: hour / curious / skip; angle chips for top interests)
+- [ ] Auto-attached feeds shown as toggles (known feeds + Google News fallback)
+- [ ] Promise screen + "spark 3 stories now" instant starter deck
+- [ ] The Ember v0 (CSS orb: breathing, blinking, three states) + microcopy voice
+- [ ] Demote interview to optional "Go deeper" entry point
+
 ## Phase 2 — The Daily Download
 
 - [ ] Scoring + deck selection (similarity, diversity cap, serendipity slot)
 - [ ] Fuel Card generation (structured LLM output, schema-validated)
 - [ ] Morning generate cron; download marked ready
-- [ ] The deck UI: masthead, card-at-a-time, hook-as-pull-quote, depth ladder, end screen
-- [ ] Star / used-it / dismissed interactions
+- [ ] The deck UI: masthead, card-at-a-time, hook-as-pull-quote, depth ladder, end screen with the Ember
+- [ ] Deck reactions ("more/less like this") + star / used-it interactions feeding the ranker
 
 **Milestone: you skim a real Daily Download with coffee. This is the moment to use it daily for 2 weeks and let the annoyances drive Phase 3+ priorities.**
 
 ## Phase 3 — People
 
-- [ ] People profiles + person-interest intake (interview-style, "tell me about your dad")
+- [ ] People quick-add (tap-first: name → topic chips), interview as optional deep mode
 - [ ] Person matching in deck selection; "For Your People" section + people chips
-- [ ] Capture notes after conversations
+- [ ] Tonight Mode: one-tap pre-event brief with fresh fuel + question bank
+- [ ] Capture notes after conversations (typed; dictation later)
 - [ ] Person page with fuel reserve
 
 ## Phase 4 — Craft & retention
 
 - [ ] Craft-note library (seeded from Carnegie, Headlee, et al.) + daily rotation
-- [ ] Back Pocket (starred collection) + full archive search
-- [ ] Pre-Event Brief
+- [ ] Back Pocket (starred collection) + fast semantic recall over the archive
+- [ ] Story Reps (30-second retell practice, hook-first check) + weekly Set List
 - [ ] Spaced resurfacing of starred cards
 - [ ] Weekly Threads digest
 

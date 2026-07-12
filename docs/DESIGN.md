@@ -1,6 +1,19 @@
 # Design Concept
 
-## The concept: "The Private Wire"
+## Concept Nº 2: "The Private Wire, warmed up" (current)
+
+The v2 evolution, driven by owner feedback and consumer-app inspiration (playful mascot onboarding, one-question-at-a-time quiz cards, big tap targets, delight-first microcopy). The synthesis:
+
+> **Editorial where you read. Playful where you touch.**
+
+- **Reading surfaces keep the broadsheet soul** — serif hooks set like pull quotes, hairline rules, mono metadata, finishable decks. Nothing from v1's reading experience is discarded.
+- **Input surfaces go tap-first** — every question the app asks is one screen, one question, two-to-four big honest buttons. Typing is reserved for the brain dump (and optional capture notes). The interview-style intake is demoted to an optional "Go deeper" mode; the default intake is **Fuel Up**: brain dump → tap calibration → promise screen + instant starter deck (see PRODUCT.md § 1).
+- **The Ember** — the app's mascot and voice: a small glowing gradient orb (flame-orange core `#FF5A1F` → amber `#FFB35C`, a blush of `#FF8DB0`), softly breathing, blinking occasionally. It bridges the two worlds: consumer-app warmth rendered in this app's own accent. States: dim / glowing (deck ready) / bright + smiling (deck done). It never shames, never shrinks, never counts streaks.
+- **Delight beats, placed deliberately**: the promise screen after intake ("Your wire is live. First edition: tomorrow, 6:00 AM"), the end-of-deck ember, one-tap deck reactions. Between those beats, the app stays calm.
+
+Reference mockup: the "Concept Nº 2" board (phone frames: brain dump, calibration, promise, fuel card, evening end-screen, Tonight mode).
+
+## The concept: "The Private Wire" (v1 foundation)
 
 The metaphor: you have a personal wire service — like a head of state's morning intelligence brief, but for dinner parties. The design language borrows from two worlds and fuses them:
 
