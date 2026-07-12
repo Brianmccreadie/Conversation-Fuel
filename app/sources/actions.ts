@@ -30,6 +30,27 @@ export async function addSource(formData: FormData) {
   return { error: null };
 }
 
+export async function runIngestNow() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "unauthorized", summary: null };
+
+  const { runIngest } = await import("@/lib/ingest");
+  const results = await runIngest();
+  revalidatePath("/sources");
+  revalidatePath("/wire");
+  return {
+    error: null,
+    summary: {
+      sources: results.length,
+      added: results.reduce((n, r) => n + r.added, 0),
+      failures: results.filter((r) => r.error).map((r) => `${r.source}: ${r.error}`),
+    },
+  };
+}
+
 export async function toggleSource(id: string, status: "active" | "paused") {
   const supabase = await createClient();
   await supabase.from("sources").update({ status }).eq("id", id);
