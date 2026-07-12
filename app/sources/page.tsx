@@ -1,7 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { Nav } from "@/components/nav";
 import { AddSourceForm } from "./add-source-form";
+import { RunIngestButton } from "./run-ingest-button";
 import { toggleSource, deleteSource } from "./actions";
+
+// The manual-ingest server action fetches every feed; give it headroom.
+export const maxDuration = 300;
 
 export default async function SourcesPage() {
   const supabase = await createClient();
@@ -13,9 +17,12 @@ export default async function SourcesPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
       <Nav active="/sources" />
-      <h1 className="mt-6 border-b-2 border-ink pb-4 font-display text-4xl font-semibold tracking-tight">
-        Sources
-      </h1>
+      <div className="mt-6 flex items-end justify-between border-b-2 border-ink pb-4">
+        <h1 className="font-display text-4xl font-semibold tracking-tight">
+          Sources
+        </h1>
+        <RunIngestButton />
+      </div>
 
       <div className="mt-8">
         <AddSourceForm />
