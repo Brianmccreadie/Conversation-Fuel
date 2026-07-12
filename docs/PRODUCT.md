@@ -15,22 +15,21 @@ Guiding principle from Carnegie: *"You can make more friends in two months by be
 
 ## Core concepts
 
-### 1. The Interest Interview (intake)
+### 1. Fuel Up (intake — 60 seconds, not an interview)
 
-Instead of a settings form with topic checkboxes, onboarding is a conversation. An LLM-driven interview asks the kinds of questions a good friend would:
+*(v2 — replaces the interview-first intake. Visual concept: docs/DESIGN.md § The Private Wire, warmed up.)*
 
-- What could you talk about for an hour without notes?
-- What do you read/watch/listen to already?
-- What do you *wish* you knew more about?
-- What topics do you avoid because they bore you?
-- Who do you talk to most, and what do those conversations tend to be about?
+Onboarding is one minute of dumping and tapping, not a conversation:
 
-The interview output is structured, not conversational:
+1. **Brain dump** — one screen, one big box: "What are you into? Dump it all." Type, paste, or tap starter chips. No organizing, no explaining. An LLM call parses the dump into a structured interest list.
+2. **Calibration** — one interest per screen, three big taps: *Could talk for an hour* (weight 1.0) / *Curious, keep me posted* (0.5) / *Actually… skip it* (drop). For top-weighted interests, one bonus tap captures the "why" as LLM-proposed angle chips ("Golf → your own game? the gear? pro drama? course design?").
+3. **The promise + instant spark** — a screen stating exactly what arrives tomorrow ("9 stories · 7 topics · 1 wildcard · 6:00 AM"), plus a "spark 3 stories now" button that ingests and generates a starter mini-deck on the spot. Value in the first minute, not the first morning.
 
-- An **interest graph**: topics with weights, sub-topics, and a note on *why* it interests you (the "why" makes matching much smarter than a tag would).
-- A **suggested source list**: RSS feeds, newsletters, and subreddits mapped to each interest, which you approve/edit.
+Feeds attach automatically per interest (known feeds, Google News RSS fallback) and appear as toggles — curation, not homework.
 
-The interview is re-runnable — a short "check-in" version periodically asks what's grown stale and what's new.
+The interest-graph output is unchanged from v1: topics with weights, subtopics, and the *why* (captured by angle taps instead of typed prose — it still powers semantic matching).
+
+**The interview survives as "Go deeper"** — optional conversational mode for periodic check-ins ("what's grown stale?") and as the natural intake for People Profiles ("tell me about your dad").
 
 ### 2. Sources & ingestion
 
@@ -62,9 +61,15 @@ Structure borrowed from conversation/storytelling craft: lead with the hook, kno
 
 Lightweight profiles for the people in your life: name, relationship, their interests (with notes on what *specifically* they care about — "Dad: not just golf, specifically equipment tech and course architecture"), and things they've mentioned recently.
 
+- **Quick-add** (v2): "Who do you see most? Add three people" — name, then tap their topics from your existing interest chips plus their own. Same tap-first pattern as Fuel Up; the conversational "tell me about your dad" interview stays as the optional deep mode.
 - The Daily Download includes a **"For Your People"** section: stories matched to each person's interests, so you can enter their world with something real.
-- After a conversation, a quick **capture note** ("Sarah mentioned she's training for a triathlon") enriches the profile and tunes future matching.
+- **Tonight Mode** (v2): tap who you're seeing tonight → a sixty-second brief: their interests, fresh matched stories, and a **question bank** — honest curiosity prompts built from their interests and your capture notes ("Last time she mentioned open-water swims scared her — has that changed?"). Carnegie made operational, never scripted lines.
+- After a conversation, a quick **capture note** — typed or dictated — ("Sarah mentioned she's training for a triathlon") enriches the profile and tunes future matching.
 - A person's profile page shows a running "fuel reserve" — recent matched stories you haven't used yet.
+
+### 4½. The Ember (personality layer, v2)
+
+A small glowing ember character — the app's presence and voice. It appears in intake ("That's my brain →"), watches the deck, and closes each edition ("You're fueled. Go be interesting."). States: dim (unread edition), glowing (deck ready), bright + smiling (deck finished). Strict rules: the Ember never shames, never shrinks punitively, never gamifies with streaks or badges. It exists to make a calm app feel alive, not to make a sticky app feel cute. All microcopy routes through its voice — warm, brief, a little wry.
 
 ### 5. The Craft Layer
 
@@ -84,8 +89,11 @@ Roughly ordered by value-to-effort for a personal app:
 6. **Weekly Threads** — a Sunday digest that connects the week's cards: "Three of this week's AI stories all point at the same shift…" Trends are better fuel than single stories.
 7. **Story Threads** — the per-story version of the same idea: cards that belong to the same developing storyline link to each other, and a thread page shows the whole arc chronologically. Pairs with "The Story So Far" on each card; also lets a thread you care about get a card even on a slow-news day ("nothing new this week, but here's where it stands").
 8. **Backgrounders** — fuel doesn't have to be *new*. Ingestion isn't limited to news feeds: evergreen sources (classic essays, long-form archives, "best of" feeds) are valid sources too, and an occasional deck slot can go to a great backgrounder on one of your interests rather than something published yesterday.
-9. **Commute Mode** (later) — text-to-speech reading of the Daily Download.
-10. **Quality signals** (later) — source-credibility notes on cards; flag single-sourced or thinly-reported stories.
+9. **Deck reactions** (v2) — one tap per card, "more like this" / "less like this," feeding the ranker. The mood-slider pattern from consumer wellness apps, applied to curation instead of feelings.
+10. **Story Reps** (v2) — active practice for the craft layer: retell today's best story in 30 seconds (type or dictate). The app checks one thing only — did you lead with the hook? — and gives one nudge, never a lecture. Weekly **Set List**: your five best stories going into the weekend, like a comedian's set.
+11. **Fast recall** (v2) — semantic search over the archive in natural language: "that story about the octopus." For the moment mid-conversation prep when you know you read it but can't surface it.
+12. **Commute Mode** (later) — text-to-speech reading of the Daily Download.
+13. **Quality signals** (later) — source-credibility notes on cards; flag single-sourced or thinly-reported stories.
 
 ## Single-user now, multi-user later
 
