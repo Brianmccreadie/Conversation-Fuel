@@ -17,7 +17,8 @@ Built on the ideas of Dale Carnegie and modern conversation researchers: be genu
 - **Next.js** (App Router) deployed on **Vercel**
 - **Supabase** — Postgres, Auth, pgvector for interest matching
 - **Vercel Cron** — nightly ingestion + Daily Download generation
-- **Anthropic API** — the interview, story breakdown, and matching layer
+- **Anthropic API** — the Ember's text brain, the interview, story breakdown, and matching layer
+- **OpenAI Realtime** (optional) — the Ember's voice mode, over WebRTC
 - **RSS** as the universal intake (newsletters via inbound-email-to-RSS bridge)
 
 ## Documentation
@@ -27,6 +28,7 @@ Built on the ideas of Dale Carnegie and modern conversation researchers: be genu
 | [docs/PRODUCT.md](docs/PRODUCT.md) | Vision, core concepts, full feature set |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, content pipeline, data model, env vars |
 | [docs/DESIGN.md](docs/DESIGN.md) | Visual concept and design language |
+| [docs/ASSISTANT.md](docs/ASSISTANT.md) | The Ember assistant — voice + chat architecture |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Phased build plan |
 
 ## Getting started
@@ -41,4 +43,4 @@ Database: apply `supabase/migrations/` to your Supabase project (SQL editor, or 
 
 ## Status
 
-Phase 0 (foundation) — app shell, auth, and schema in place. Next: the Interest Interview and the ingestion pipeline (see [docs/ROADMAP.md](docs/ROADMAP.md), Phase 1).
+Through Phase 2.5 — the full loop runs (Fuel Up → nightly ingest → Daily Download deck), redesigned v3 ("The Private Wire, electrified") with the Ember assistant (text + optional voice), People with Tonight Mode, the Craft library, and a one-tap starter pack of verified feeds. Next: person matching inside deck generation and the reaction-driven ranker (see [docs/ROADMAP.md](docs/ROADMAP.md)).
