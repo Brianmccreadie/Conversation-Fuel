@@ -1,5 +1,37 @@
 # Design Concept
 
+## Concept Nº 3: "The Private Wire, electrified" (current)
+
+The v3 pass keeps everything Concept Nº 2 stood for — editorial where you
+read, playful where you touch — and makes the paper feel *alive*:
+
+- **Grain** — a faint animated paper-noise overlay on every screen; the app is
+  printed on real stock.
+- **Physics, not transitions** — deck cards drag and throw with spring
+  physics; buttons are magnetic; craft cards tilt toward the cursor; chips
+  lift on hover. All hand-rolled (no animation library) and fully disabled
+  under `prefers-reduced-motion`.
+- **The living masthead** — every page shares one masthead: date line, live
+  mono clock (with a blinking second colon), brand wordmark, nav with a
+  drawn-underline active state, and a crawling **headline ticker** of the
+  latest wire items (pauses on hover).
+- **The fuel gauge** — a small arc gauge in the deck masthead fills as you
+  read; progress dots are scrubbable.
+- **Ember sparks** — the end-of-deck screen drifts warm particles off the
+  Ember. Reward, not gamification.
+- **⌘K everywhere** — a command palette (editorial styling, no library):
+  navigate, fire actions (spark a deck, tonight mode), and search the full
+  archive inline.
+- **The Ember dock** — the mascot perches bottom-right on every page,
+  breathing; hover makes it smile; tap opens the fireside (see ASSISTANT.md).
+- **The orb** — on /ember the mascot gains a canvas halo: 72 radial bars that
+  render live audio FFT in voice mode, orbiting sparks while thinking, and a
+  sine breath at rest. The character stays; the physics arrive.
+- **Wildcard stamp** — the serendipity card wears a rotated "OFF YOUR MAP"
+  stamp and an accent border.
+
+Everything below still applies.
+
 ## Concept Nº 2: "The Private Wire, warmed up" (current)
 
 The v2 evolution, driven by owner feedback and consumer-app inspiration (playful mascot onboarding, one-question-at-a-time quiz cards, big tap targets, delight-first microcopy). The synthesis:

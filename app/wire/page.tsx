@@ -1,57 +1,60 @@
 import { createClient } from "@/lib/supabase/server";
-import { Nav } from "@/components/nav";
+import { Shell } from "@/components/shell";
+import { WireList, type WireItem } from "./wire-list";
 
-// Raw feed of ingested items — proves the pipeline works ahead of the
-// Daily Download (Phase 2), and doubles as the archive backbone.
+// The Wire — the raw intake, redesigned as a proper reading room:
+// filter by interest, search, scan by day. The Daily Download distills this.
 export default async function WirePage() {
   const supabase = await createClient();
-  const { data: items } = await supabase
-    .from("items")
-    .select("id, url, title, author, published_at, sources(title)")
-    .order("published_at", { ascending: false, nullsFirst: false })
-    .limit(50);
+
+  const [{ data: items }, { data: interests }] = await Promise.all([
+    supabase
+      .from("items")
+      .select("id, url, title, author, published_at, sources(title, interests(label))")
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .limit(200),
+    supabase
+      .from("interests")
+      .select("label")
+      .eq("status", "active")
+      .order("weight", { ascending: false }),
+  ]);
+
+  const wireItems: WireItem[] = (items ?? []).map((i) => {
+    const src = i.sources as unknown as {
+      title: string | null;
+      interests: { label: string } | null;
+    } | null;
+    return {
+      id: i.id,
+      url: i.url,
+      title: i.title,
+      author: i.author,
+      published_at: i.published_at,
+      source: src?.title ?? null,
+      interest: src?.interests?.label ?? null,
+    };
+  });
 
   return (
-    <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
-      <Nav active="/wire" />
-      <h1 className="mt-6 border-b-2 border-ink pb-4 font-display text-4xl font-semibold tracking-tight">
-        The Wire
-      </h1>
-      <p className="mt-3 text-sm text-ink-faint">
-        Everything ingested overnight, newest first. The Daily Download will
-        distill this.
-      </p>
-
-      <ul className="mt-8 divide-y divide-rule border-t border-rule">
-        {(items ?? []).map((item) => (
-          <li key={item.id} className="py-4">
-            <a
-              href={item.url}
-              target="_blank"
-              rel="noreferrer"
-              className="font-display text-lg leading-snug hover:text-accent"
-            >
-              {item.title}
-            </a>
-            <p className="mt-1 font-mono text-xs uppercase tracking-widest text-ink-faint">
-              {(item.sources as unknown as { title: string | null } | null)?.title ??
-                "unknown source"}
-              {item.published_at &&
-                ` · ${new Date(item.published_at).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })}`}
-              {item.author && ` · ${item.author}`}
-            </p>
-          </li>
-        ))}
-        {(items ?? []).length === 0 && (
-          <li className="py-8 text-center text-sm text-ink-faint">
-            Nothing on the wire yet. Add sources and wait for the nightly
-            ingest — or trigger it manually.
-          </li>
-        )}
-      </ul>
-    </main>
+    <Shell active="/wire" width="wide" ticker={false}>
+      <div className="rise flex items-end justify-between">
+        <div>
+          <h1 className="font-display text-4xl font-semibold tracking-tight">
+            The Wire
+          </h1>
+          <p className="mt-2 text-sm text-ink-faint">
+            Everything your feeds carried in, newest first. Tomorrow&apos;s deck
+            is distilled from here.
+          </p>
+        </div>
+      </div>
+      <div className="mt-7">
+        <WireList
+          items={wireItems}
+          interests={(interests ?? []).map((i) => i.label)}
+        />
+      </div>
+    </Shell>
   );
 }

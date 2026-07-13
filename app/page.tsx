@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Nav } from "@/components/nav";
+import { Shell } from "@/components/shell";
 import { Ember } from "@/components/ember";
 import { Deck, type DeckCard } from "@/components/deck";
 import { SparkButton } from "@/components/spark-button";
@@ -131,35 +131,5 @@ export default async function Home() {
         peopleCount={peopleCount}
       />
     </Shell>
-  );
-}
-
-async function Shell({
-  active,
-  children,
-}: {
-  active: string;
-  children: React.ReactNode;
-}) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-6 py-10">
-      <div className="mb-8">
-        <Nav active={active} />
-      </div>
-      {children}
-      <footer className="mt-12 flex items-center justify-between border-t border-rule pt-4 font-mono text-xs text-ink-faint">
-        <span>{user?.email}</span>
-        <form action="/auth/signout" method="post">
-          <button type="submit" className="hover:text-accent">
-            Sign out
-          </button>
-        </form>
-      </footer>
-    </main>
   );
 }

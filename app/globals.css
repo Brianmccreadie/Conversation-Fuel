@@ -1,18 +1,33 @@
 @import "tailwindcss";
 
-/* "The Private Wire" — paper & ink, one flame accent. See docs/DESIGN.md */
+/* ---------------------------------------------------------------------------
+   "The Private Wire, electrified" — design system v3.
+   Editorial where you read, playful where you touch, alive everywhere.
+   See docs/DESIGN.md § Concept Nº 3.
+--------------------------------------------------------------------------- */
+
 @theme {
   --color-paper: #faf7f2;
   --color-paper-raised: #fffdf9;
+  --color-paper-deep: #f1ece3;
   --color-ink: #1c1a17;
   --color-ink-soft: #4d4a45;
   --color-ink-faint: #8a857d;
   --color-rule: #e2dcd2;
   --color-accent: #d64513;
+  --color-accent-soft: #ff8a54;
+  --color-amber: #e8930c;
+  --color-blush: #ff8db0;
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --shadow-card: 0 1px 2px rgba(28, 26, 23, 0.05), 0 8px 24px -8px rgba(28, 26, 23, 0.12);
+  --shadow-card-hover: 0 2px 4px rgba(28, 26, 23, 0.06), 0 18px 44px -12px rgba(28, 26, 23, 0.2);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Evening Edition */
@@ -20,11 +35,15 @@
   :root {
     --color-paper: #191714;
     --color-paper-raised: #211e1a;
+    --color-paper-deep: #131110;
     --color-ink: #ece7de;
     --color-ink-soft: #b5aea3;
     --color-ink-faint: #7d776d;
     --color-rule: #35312b;
     --color-accent: #f0602a;
+    --color-accent-soft: #ff8a54;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+    --shadow-card-hover: 0 2px 4px rgba(0, 0, 0, 0.5), 0 18px 44px -12px rgba(0, 0, 0, 0.65);
   }
 }
 
@@ -32,37 +51,207 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+}
+
+/* Paper grain — the whole app is printed on real stock. */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(3) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-2%, 1%); }
+  66% { transform: translate(1%, -2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* -------------------------------------------------------------------------
+   Motion primitives
+------------------------------------------------------------------------- */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise {
+  animation: rise 0.7s var(--ease-out-expo) both;
+  animation-delay: calc(var(--rise-i, 0) * 70ms);
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateX(28px) rotate(0.6deg) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+}
+@keyframes card-in-back {
+  from { opacity: 0; transform: translateX(-28px) rotate(-0.6deg) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+}
+.card-in { animation: card-in 0.5s var(--ease-out-expo) both; }
+.card-in-back { animation: card-in-back 0.5s var(--ease-out-expo) both; }
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll var(--ticker-duration, 60s) linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.pulse-ring { animation: pulse-ring 2.2s var(--ease-out-expo) infinite; }
+
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(0) scale(1); }
+  12% { opacity: var(--p-opacity, 0.9); }
+  100% { opacity: 0; transform: translateY(-140px) translateX(var(--p-drift, 0px)) scale(0.4); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    color-mix(in srgb, var(--color-accent) 14%, transparent) 50%,
+    transparent 62%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+@keyframes blink-caret {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+.caret { animation: blink-caret 1.1s infinite; }
+
+@keyframes thinking-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.thinking-dot { animation: thinking-dot 1.2s ease-in-out infinite; }
+.thinking-dot:nth-child(2) { animation-delay: 0.15s; }
+.thinking-dot:nth-child(3) { animation-delay: 0.3s; }
 
 /* The Ember */
 @keyframes ember-breathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.06);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 @keyframes ember-blink {
-  0%,
-  92%,
-  100% {
-    transform: scaleY(1);
-  }
-  95% {
-    transform: scaleY(0.1);
-  }
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
 }
-.ember-breathe {
-  animation: ember-breathe 4.5s ease-in-out infinite;
+.ember-breathe { animation: ember-breathe 4.5s ease-in-out infinite; }
+.ember-blink { animation: ember-blink 6s infinite; }
+
+/* Page transitions */
+::view-transition-old(root) {
+  animation: fade-out 0.18s ease both;
 }
-.ember-blink {
-  animation: ember-blink 6s infinite;
+::view-transition-new(root) {
+  animation: rise 0.35s var(--ease-out-expo) both;
 }
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+
+/* -------------------------------------------------------------------------
+   Editorial details
+------------------------------------------------------------------------- */
+
+.masthead-rule {
+  background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 70%, var(--color-accent) 70%, var(--color-accent) 100%);
+  height: 2px;
+}
+
+.link-draw {
+  position: relative;
+}
+.link-draw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1.5px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.link-draw:hover::after,
+.link-draw[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+.stamp {
+  transform: rotate(-4deg);
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  padding: 2px 10px;
+  letter-spacing: 0.18em;
+}
+
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.1em;
+  float: left;
+  line-height: 0.85;
+  padding-right: 0.09em;
+  color: var(--color-accent);
+}
+
+/* Custom scrollbar — hairline, editorial */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-rule) transparent;
+}
+
+/* Keyboard hint chips */
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  border: 1px solid var(--color-rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--color-ink-faint);
+  background: var(--color-paper-raised);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ember-breathe,
-  .ember-blink {
-    animation: none;
+  .ember-blink,
+  .rise,
+  .card-in,
+  .card-in-back,
+  .ticker-track,
+  .pulse-ring,
+  .shimmer,
+  .grain::before {
+    animation: none !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

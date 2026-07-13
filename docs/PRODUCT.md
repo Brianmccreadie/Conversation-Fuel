@@ -71,6 +71,17 @@ Lightweight profiles for the people in your life: name, relationship, their inte
 
 A small glowing ember character — the app's presence and voice. It appears in intake ("That's my brain →"), watches the deck, and closes each edition ("You're fueled. Go be interesting."). States: dim (unread edition), glowing (deck ready), bright + smiling (deck finished). Strict rules: the Ember never shames, never shrinks punitively, never gamifies with streaks or badges. It exists to make a calm app feel alive, not to make a sticky app feel cute. All microcopy routes through its voice — warm, brief, a little wry.
 
+### 4¾. The Ember Assistant (v3)
+
+The Ember grew a voice. On /ember (and from its perch on every page) you can
+type or *speak* to it. Its functions map one-to-one to the product's core
+loops: give the download, interview you about your people (and file what it
+learns), build tonight briefs, coach one craft move at a time, and break down
+or practice-retell any story. It is grounded in the same craft library and
+Carnegie principles as the deck's colophon, and it obeys the personality
+rules: never shames, never scripts lines, always brief. Full design:
+docs/ASSISTANT.md.
+
 ### 5. The Craft Layer
 
 A library of principles from Carnegie and modern conversation experts (Celeste Headlee's *10 Ways to Have a Better Conversation*, Vanessa Van Edwards, storytelling structures like the story spine). One rotating **Craft Note** appears in each Daily Download — a single principle, ideally connected to that day's content ("Today's deck has two contested stories — Headlee's rule: don't equate your experience with theirs; ask what it was like for them").

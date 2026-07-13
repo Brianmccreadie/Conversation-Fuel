@@ -62,3 +62,64 @@ export async function deleteSource(id: string) {
   await supabase.from("sources").delete().eq("id", id);
   revalidatePath("/sources");
 }
+
+// Install the starter pack: interests + live-verified feeds in one tap.
+// Idempotent — existing interests are matched by label, feeds by URL.
+export async function installStarterPack() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "unauthorized", added: 0 };
+
+  const { STARTER_PACK } = await import("@/lib/starter-pack");
+  const { embed } = await import("@/lib/embeddings");
+
+  let added = 0;
+  for (const pack of STARTER_PACK) {
+    // interest: reuse by label, create if missing
+    const { data: existing } = await supabase
+      .from("interests")
+      .select("id")
+      .ilike("label", pack.label)
+      .maybeSingle();
+    let interestId = existing?.id as string | undefined;
+    if (!interestId) {
+      let embedding: number[] | null = null;
+      try {
+        const vecs = await embed(
+          [`${pack.label}. ${pack.why} ${pack.subtopics.join(", ")}`],
+          "document"
+        );
+        embedding = vecs?.[0] ?? null;
+      } catch {
+        // embeddings backfill later; matching quality degrades gracefully
+      }
+      const { data: created, error } = await supabase
+        .from("interests")
+        .insert({
+          label: pack.label,
+          why: pack.why,
+          weight: pack.weight,
+          subtopics: pack.subtopics,
+          ...(embedding ? { embedding } : {}),
+        })
+        .select("id")
+        .single();
+      if (error || !created) continue;
+      interestId = created.id;
+    }
+
+    for (const feed of pack.feeds) {
+      const { error } = await supabase.from("sources").insert({
+        url: feed.url,
+        title: feed.title,
+        interest_id: interestId,
+      });
+      if (!error) added++;
+    }
+  }
+  revalidatePath("/sources");
+  revalidatePath("/interests");
+  return { error: null, added };
+}

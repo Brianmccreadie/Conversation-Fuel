@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { Ember } from "@/components/ember";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,15 +33,22 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
+        <div className="rise flex justify-center pb-8" style={{ "--rise-i": 0 } as React.CSSProperties}>
+          <Ember size="md" state="glow" />
+        </div>
+        <p className="rise font-mono text-xs uppercase tracking-[0.2em] text-ink-faint" style={{ "--rise-i": 1 } as React.CSSProperties}>
           The Private Wire
         </p>
-        <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">
-          Conversation Fuel
+        <h1 className="rise mt-2 font-display text-4xl font-semibold tracking-tight" style={{ "--rise-i": 2 } as React.CSSProperties}>
+          Conversation Fuel<span className="text-accent">.</span>
         </h1>
+        <p className="rise mt-3 text-sm leading-relaxed text-ink-soft" style={{ "--rise-i": 3 } as React.CSSProperties}>
+          Your morning edition of things worth saying — and asking.
+        </p>
         <form
           onSubmit={handleSubmit}
-          className="mt-6 flex flex-col gap-3 border-t border-rule pt-6"
+          className="rise mt-6 flex flex-col gap-3 border-t border-rule pt-6"
+          style={{ "--rise-i": 4 } as React.CSSProperties}
         >
           <label
             htmlFor="email"
